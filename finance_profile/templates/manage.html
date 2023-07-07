@@ -1,0 +1,111 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+{% block 'head' %}
+
+    <link href="{% static 'finance_profile/css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'finance_profile/css/manage.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block 'body' %}
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="col-md-5">
+                <p class="fonte-destaque">Wallets</p>
+                <hr>
+
+                <div class="contas">
+
+                    {% for wallet in wallets %}
+                        <div class="lista-contas-main">
+                            <span><img width="10%" src="#">&nbsp&nbsp{{wallet.name}}</span>
+                            <span class="total-conta positivo ">$ {{wallet.value}}&nbsp&nbsp&nbsp <a href="#"><img src="{% static 'finance_profile/img/exit.png' %}"></a></span>
+                        </div>
+                        <br>
+                    {% endfor %}
+                    
+                    
+                    
+                </div>
+
+                <hr>
+                <span class="fonte-destaque">Total:</span>
+                <span class="positivo total-conta font-destaque">R$ 1.800,00</span>
+            </div>
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-5">
+                <p class="fonte-destaque">New Wallet</p>
+                
+                <form action="{% url 'add_wallet' %}" method="POST">{% csrf_token %}
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="">
+                    <br>
+                    <label>Bank</label>
+                    <select name="bank" class="form-select">
+                        <option value="NU">Nubank</option>
+                        <option value="BB">Banco do Brasil</option>
+                    </select>
+                    <br>
+                    <label>Type</label>
+                    <select name="wallet_type" class="form-select">
+                        <option value="P">Personal</option>
+                        <option value="C">Company</option>
+                    </select>
+                    <br>
+                    <label>Value</label>
+                    <input type="number" name="value" class="form-control" placeholder="">
+                    <br>
+                    <input style="width: 100%" type="submit" class="botao-principal", value="Send">
+                </form>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-5">
+                <span class="fonte-destaque">New categorie</span>
+
+                <form action="" method="POST">
+                    <label>Categorie</label>
+                    <input type="text" name="categorie" class="form-control">
+                    <br>
+
+                    <input type="checkbox" name="essential" value="essencial"><label class="positivo">&nbspEssential</label>
+                    <br>
+                    <br>
+                    <input style="width: 100%" type="submit" class="botao-principal" value="Add">
+                </form>
+            </div>
+
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-5">
+                <span class="fonte-destaque">Your categories</span>
+                <br>
+                <div class="contas">
+
+                    
+                        <div class="lista-contas-main">
+                            <span>Lazer</span>
+
+                            <span class="total-conta"><a href="#"><img src="#"></a></span>
+                        </div>
+                        <br>
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
