@@ -25,8 +25,8 @@
 
                     {% for wallet in wallets %}
                         <div class="lista-contas-main">
-                            <span><img width="10%" src="#">&nbsp&nbsp{{wallet.name}}</span>
-                            <span class="total-conta positivo ">$ {{wallet.value}}&nbsp&nbsp&nbsp <a href="#"><img src="{% static 'finance_profile/img/exit.png' %}"></a></span>
+                            <span><img width="10%" src="{% static 'finance_profile/img/dollar.png' %}">&nbsp&nbsp{{wallet.name}}</span>
+                            <span class="total-conta positivo ">$ {{wallet.value}}&nbsp&nbsp&nbsp <a href="{% url 'delete_wallet' wallet.id %}"><img src="{% static 'finance_profile/img/exit.png' %}"></a></span>
                         </div>
                         <br>
                     {% endfor %}
@@ -37,7 +37,7 @@
 
                 <hr>
                 <span class="fonte-destaque">Total:</span>
-                <span class="positivo total-conta font-destaque">R$ 1.800,00</span>
+                <span class="positivo total-conta font-destaque">$ {{total_wallets}}</span>
             </div>
 
             <div class="col-md-2"></div>
@@ -75,12 +75,12 @@
             <div class="col-md-5">
                 <span class="fonte-destaque">New categorie</span>
 
-                <form action="" method="POST">
+                <form action="{% url 'add_categorie' %}" method="POST">{% csrf_token %}
                     <label>Categorie</label>
                     <input type="text" name="categorie" class="form-control">
                     <br>
 
-                    <input type="checkbox" name="essential" value="essencial"><label class="positivo">&nbspEssential</label>
+                    <input type="checkbox" name="essential" value="essential"><label class="positivo">&nbspEssential</label>
                     <br>
                     <br>
                     <input style="width: 100%" type="submit" class="botao-principal" value="Add">
@@ -95,13 +95,13 @@
                 <br>
                 <div class="contas">
 
-                    
+                    {% for categorie in categories %}
                         <div class="lista-contas-main">
-                            <span>Lazer</span>
-
+                            <span>{{categorie.categorie}}</span>
                             <span class="total-conta"><a href="#"><img src="#"></a></span>
                         </div>
                         <br>
+                    {% endfor %}
                    
                     
                 </div>
