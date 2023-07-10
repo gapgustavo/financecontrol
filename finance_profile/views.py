@@ -55,7 +55,7 @@ def add_categorie(request):
         essential=essential,
     )
 
-    if len(categorie.strip()) == 0:
+    if len(str(categorie)) == 0:
         messages.add_message(request, constants.WARNING, 'Make sure all CATEGORIES fields are filled in')
         return redirect('/finance_profile/manage/')
 
